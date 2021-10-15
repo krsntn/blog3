@@ -1,36 +1,68 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "Blog2",
+    title: `Krsn's Lazy Dev Blog`,
+    author: {
+      name: `krsntn`,
+      summary: `web dev`,
+    },
+    description: `A simple, fixed sidebar two columns Gatsby.js blog starter.`,
+    siteUrl: `https://blog.krsn.xyz`,
+    social: {
+      twitter: `ooneoneo`,
+    },
+    defaultImage: 'images/bg.jpeg',
   },
   plugins: [
-    "gatsby-plugin-postcss",
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
+    'gatsby-plugin-postcss',
+    'gatsby-plugin-image',
+    'gatsby-plugin-react-helmet',
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: "src/images/icon.png",
+        background_color: `#ffffff`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: 'src/images/icon.png',
       },
     },
-    "gatsby-plugin-mdx",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+    'gatsby-plugin-mdx',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-transformer-remark`,
       options: {
-        name: "images",
-        path: "./src/images/",
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 630,
+            },
+          },
+          {
+            resolve: `gatsby-remark-responsive-iframe`,
+            options: {
+              wrapperStyle: `margin-bottom: 1.0725rem`,
+            },
+          },
+          `gatsby-remark-prismjs`,
+          `gatsby-remark-copy-linked-files`,
+          `gatsby-remark-smartypants`,
+        ],
       },
-      __key: "images",
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "pages",
-        path: "./src/pages/",
+        name: 'images',
+        path: './src/images/',
       },
-      __key: "pages",
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
+      },
     },
   ],
 };
