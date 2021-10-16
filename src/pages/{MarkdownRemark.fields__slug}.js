@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import Seo from '../components/Seo';
 
-import Layout from '../components/Layout';
 import '../styles/post.css';
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
   const { previous, next } = data.allMarkdownRemark.edges.find(
     (x) => x.node.id === post.id
   );
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <div>
+      <Seo title={post.frontmatter.title} />
       <article itemType="http://schema.org/Article">
         <header>
           <h2 itemProp="headline">
@@ -47,7 +47,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </li>
         </ul>
       </nav>
-    </Layout>
+    </div>
   );
 };
 

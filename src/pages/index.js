@@ -1,78 +1,103 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import { navigate } from 'gatsby';
 import { motion } from 'framer-motion';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
-import Layout from '../components/Layout';
+import Seo from '../components/Seo';
 
-const Index = ({ location, navigate }) => {
+const Index = ({ location }) => {
   const data = useSiteMetadata();
-  console.log(`data2`, data);
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
-  const [posts, setPosts] = useState(data.allMarkdownRemark.nodes);
-  const [showAllPosts, setShowAllPosts] = useState(true);
+  const [clicked, setClicked] = useState(null);
+  const posts = data.allMarkdownRemark.nodes;
 
   const renderHeader = (isExternal, link, component) => {
     if (isExternal) {
       return (
-        <a href={link} itemProp="url" className="post-link">
+        <a
+          className="absolute"
+          href={link}
+          target="_blank"
+          rel="noreferrer noopener"
+          itemProp="url"
+        >
           {component}
         </a>
       );
     }
 
     return (
-      <Link to={link} itemProp="url" className="post-link">
+      <motion.button
+        onClick={() => {
+          setClicked(link);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            navigate(link);
+          }, 800);
+        }}
+        itemProp="url"
+        className="absolute"
+        animate={{
+          top: clicked === link ? 0 : 'unset',
+          opacity: clicked && clicked !== link ? 0 : 1,
+        }}
+        transition={{ duration: 0.35 }}
+      >
         {component}
-      </Link>
+      </motion.button>
     );
   };
 
-  const displayPosts = showAllPosts
-    ? posts
-    : posts.filter((post, index) => index < 5);
-
   return (
-    <Layout>
-      {displayPosts.length === 0 ? (
-        <p className="no-blog-post">No blog posts found.</p>
-      ) : (
-        <ol className="list-none">
-          {displayPosts.map((post) => {
-            const title = post.frontmatter.title || post.fields.slug;
-            const isExternal = !!post.frontmatter.url;
-            const link = post.frontmatter.url || post.fields.slug;
-            const tags = post.frontmatter.tags;
+    <React.Fragment>
+      <Seo title="Home" />
+      <div className="relative">
+        {posts.length === 0 ? (
+          <p>No blog posts found.</p>
+        ) : (
+          <ol className="list-none">
+            {posts.map((post) => {
+              const title = post.frontmatter.title || post.fields.slug;
+              const isExternal = !!post.frontmatter.url;
+              const link = post.frontmatter.url || post.fields.slug;
 
-            return (
-              <li key={post.fields.slug} tabIndex="-1">
-                <article
-                  className="mb-10"
-                  itemScope
-                  itemType="http://schema.org/Article"
+              return (
+                <motion.li
+                  animate={{ opacity: clicked && clicked !== link ? 0 : 1 }}
+                  transition={{ duration: 0.25 }}
+                  key={post.fields.slug}
+                  tabIndex="-1"
                 >
-                  <header>
-                    {renderHeader(
-                      isExternal,
-                      link,
-                      <strong className="main-reveal-text text-lg text-blue-500 dark:text-green-400">
-                        {`${title} ${isExternal ? '??' : ''}`}
-                      </strong>
-                    )}
-                  </header>
-                  <p itemProp="description">{post.frontmatter.description}</p>
-                  <small className="text-xs">{post.frontmatter.date}</small>
-                  {/* <div>
-                      {tags?.map((tag, index) => (
-                        <Tag key={index}>{tag}</Tag>
-                      ))}
-                    </div> */}
-                </article>
-              </li>
-            );
-          })}
-        </ol>
-      )}
-    </Layout>
+                  <article
+                    className="mb-10"
+                    itemScope
+                    itemType="http://schema.org/Article"
+                  >
+                    <header>
+                      {renderHeader(
+                        isExternal,
+                        link,
+                        <strong className="main-reveal-text text-lg text-blue-500 dark:text-green-400 hover:underline">
+                          {`${isExternal ? '->' : ''} ${title}`}
+                        </strong>
+                      )}
+                    </header>
+                    <motion.div
+                      animate={{ opacity: clicked ? 0 : 1 }}
+                      transition={{ duration: 0.25 }}
+                      className="relative top-8 pb-6"
+                    >
+                      <p itemProp="description">
+                        {post.frontmatter.description}
+                      </p>
+                      <small className="text-xs">{post.frontmatter.date}</small>
+                    </motion.div>
+                  </article>
+                </motion.li>
+              );
+            })}
+          </ol>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 

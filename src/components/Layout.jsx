@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 import DarkModeToggleButton from './DarkModeToggleButton';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 
-const Layout = ({ location, children }) => {
+const Layout = ({ children }) => {
   const siteMetadata = useSiteMetadata();
 
   const header = (
-    <>
+    <React.Fragment>
       <motion.div
         initial={{ scale: 2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -32,14 +32,14 @@ const Layout = ({ location, children }) => {
       </h2>
       <p className="text-sm">
         Written by karson, a front end dev trying to make the web a little
-        better place while earning a living.
+        better place while making a living.
       </p>
-    </>
+    </React.Fragment>
   );
 
   return (
-    <div className="bg-white dark:bg-gray-800 dark:text-white transition duration-500 ease-out min-h-screen">
-      <div className="bg-gray-100 dark:bg-gray-700 w-screen md:w-80 md:h-screen fixed top-0 left-0 overflow-hidden text-center">
+    <div className="bg-white dark:bg-gray-700 dark:text-white transition duration-500 ease-out min-h-screen">
+      <div className="bg-gray-100 dark:bg-gray-800 w-screen md:w-80 md:h-screen fixed top-0 left-0 overflow-hidden text-center">
         <div
           className="md:h-screen p-4 flex flex-col justify-center items-center"
           style={{ minHeight: 200 }}
@@ -48,7 +48,7 @@ const Layout = ({ location, children }) => {
         </div>
       </div>
 
-      <main className="relative bg-white dark:bg-gray-800 md:ml-80 top-48 md:top-0 p-10">
+      <main className="relative bg-white dark:bg-gray-700 md:ml-80 top-48 md:top-0 p-10">
         {children}
       </main>
     </div>

@@ -5,7 +5,7 @@ module.exports = {
       name: `krsntn`,
       summary: `web dev`,
     },
-    description: `A simple, fixed sidebar two columns Gatsby.js blog starter.`,
+    description: `Front End Dev, Sport Enthusiast & Occasional Graphic Designer making the web a little better place while trying to earn a living.`,
     siteUrl: `https://blog.krsn.xyz`,
     social: {
       twitter: `ooneoneo`,
