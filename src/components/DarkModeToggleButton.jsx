@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import {
-  updateWebsiteDarkMode,
-  toggleDarkMode,
-  isDarkMode,
-} from '../utils/darkMode';
+import React, { useState, useEffect } from 'react';
+import { updateWebsiteDarkMode } from '../utils/darkMode';
 import { motion } from 'framer-motion';
 
 const DarkModeToggleButton = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(isDarkMode);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    updateWebsiteDarkMode(isDarkMode);
+  }, [isDarkMode]);
 
   const toggleMode = () => {
-    setIsDarkTheme(!isDarkTheme);
-    toggleDarkMode();
+    setIsDarkMode(!isDarkMode);
   };
-
-  updateWebsiteDarkMode();
 
   return (
     <button
@@ -24,8 +21,8 @@ const DarkModeToggleButton = () => {
     >
       <motion.svg
         style={{ originY: '100px', display: 'absolute', x: '12px' }}
-        initial={{ rotate: isDarkTheme ? 0 : '-90deg' }}
-        animate={{ rotate: isDarkTheme ? 0 : '-90deg' }}
+        initial={{ rotate: isDarkMode ? 0 : '-90deg' }}
+        animate={{ rotate: isDarkMode ? 0 : '-90deg' }}
         transition={{
           duration: 0.5,
           type: 'spring',
@@ -41,8 +38,8 @@ const DarkModeToggleButton = () => {
       </motion.svg>
       <motion.svg
         style={{ originY: '100px', display: 'absolute', x: '-12px' }}
-        initial={{ rotate: isDarkTheme ? '90deg' : 0 }}
-        animate={{ rotate: isDarkTheme ? '90deg' : 0 }}
+        initial={{ rotate: isDarkMode ? '90deg' : 0 }}
+        animate={{ rotate: isDarkMode ? '90deg' : 0 }}
         transition={{
           duration: 0.5,
           type: 'spring',

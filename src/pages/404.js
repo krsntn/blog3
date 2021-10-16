@@ -29,8 +29,10 @@ const NotFoundPage = () => {
   return (
     <main style={pageStyles}>
       <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
+      <h1 style={headingStyles} className="dark:text-white">
+        404: Page not found
+      </h1>
+      <p style={paragraphStyles} className="dark:text-white">
         Sorry{' '}
         <span role="img" aria-label="Pensive emoji">
           😔
@@ -45,7 +47,10 @@ const NotFoundPage = () => {
           </>
         ) : null}
         <br />
-        <Link className="text-blue-500 underline" to="/">
+        <Link
+          className="text-blue-500 dark:text-green-400 hover:underline"
+          to="/"
+        >
           Go home
         </Link>
       </p>

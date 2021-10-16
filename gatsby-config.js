@@ -65,5 +65,11 @@ module.exports = {
       },
     },
     'gatsby-plugin-netlify-cms',
+    {
+      resolve: 'gatsby-plugin-html-attributes',
+      options: {
+        className: 'dark',
+      },
+    },
   ],
 };
