@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, graphql } from 'gatsby';
 import { motion } from 'framer-motion';
 import Seo from '../components/Seo';
-
 import '../styles/post.css';
 
 const BlogPostTemplate = ({ data }) => {
+  useEffect(() => {
+    if (window !== undefined) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   const post = data.markdownRemark;
   const { previous, next } = data.allMarkdownRemark.edges.find(
     (x) => x.node.id === post.id
@@ -46,17 +51,45 @@ const BlogPostTemplate = ({ data }) => {
         <hr />
       </article>
       <nav>
-        <ul className="text-blue-500 dark:text-green-400 flex flex-wrap justify-between list-none py-4">
+        <ul className="text-blue-500 dark:text-green-400 flex flex-wrap justify-between gap-4 list-none py-4">
           <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+            {previous && previous.frontmatter.url && (
+              <a
+                href={previous.frontmatter.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:underline"
+              >
+                {'<'} {previous.frontmatter.title}
+              </a>
+            )}
+            {previous && !previous.frontmatter.url && previous.fields.slug && (
+              <Link
+                to={previous.fields.slug}
+                rel="prev"
+                className="hover:underline"
+              >
                 {'<'} {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
+            {next && next.frontmatter.url && (
+              <a
+                href={next.frontmatter.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:underline"
+              >
+                {next.frontmatter.title} {'>'}
+              </a>
+            )}
+            {next && !next.frontmatter.url && next.fields.slug && (
+              <Link
+                to={next.fields.slug}
+                rel="prev"
+                className="hover:underline"
+              >
                 {next.frontmatter.title} {'>'}
               </Link>
             )}
@@ -99,6 +132,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+            url
           }
         }
         previous {
@@ -107,6 +141,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+            url
           }
         }
       }
