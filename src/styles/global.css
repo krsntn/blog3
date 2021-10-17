@@ -13,6 +13,10 @@ html.dark {
   --primary: #34d399;
 }
 
+*:focus {
+  outline: none;
+}
+
 /* Text reveal animation */
 .main-reveal-text,
 .main-reveal-text::after,

@@ -13,10 +13,10 @@ const Index = ({ location }) => {
     if (isExternal) {
       return (
         <a
-          className="absolute"
           href={link}
           target="_blank"
           rel="noreferrer noopener"
+          className="absolute text-left left-0"
           itemProp="url"
         >
           {component}
@@ -34,7 +34,7 @@ const Index = ({ location }) => {
           }, 800);
         }}
         itemProp="url"
-        className="absolute"
+        className="absolute text-left left-0"
         animate={{
           top: clicked === link ? 0 : 'unset',
           opacity: clicked && clicked !== link ? 0 : 1,
@@ -49,54 +49,51 @@ const Index = ({ location }) => {
   return (
     <React.Fragment>
       <Seo title="Home" />
-      <div className="relative">
-        {posts.length === 0 ? (
-          <p>No blog posts found.</p>
-        ) : (
-          <ol className="list-none">
-            {posts.map((post) => {
-              const title = post.frontmatter.title || post.fields.slug;
-              const isExternal = !!post.frontmatter.url;
-              const link = post.frontmatter.url || post.fields.slug;
+      {posts.length === 0 ? (
+        <p>No blog posts found.</p>
+      ) : (
+        <ol className="relative list-none">
+          {posts.map((post) => {
+            const title = post.frontmatter.title || post.fields.slug;
+            const isExternal = !!post.frontmatter.url;
+            const link = post.frontmatter.url || post.fields.slug;
 
-              return (
-                <motion.li
-                  animate={{ opacity: clicked && clicked !== link ? 0 : 1 }}
-                  transition={{ duration: 0.25 }}
-                  key={post.fields.slug}
-                  tabIndex="-1"
-                >
-                  <article
-                    className="mb-10"
-                    itemScope
-                    itemType="http://schema.org/Article"
+            return (
+              <motion.li
+                className="mb-10"
+                animate={{ opacity: clicked && clicked !== link ? 0 : 1 }}
+                transition={{ duration: 0.25 }}
+                key={post.fields.slug}
+                tabIndex="-1"
+              >
+                <article itemScope itemType="http://schema.org/Article">
+                  <header>
+                    {renderHeader(
+                      isExternal,
+                      link,
+                      <strong className="main-reveal-text text-lg text-blue-500 dark:text-green-400 hover:underline">
+                        {`${isExternal ? '->' : ''} ${title}`}
+                      </strong>
+                    )}
+                    <div className="invisible">
+                      <strong className="text-lg hover:underline">
+                        {`${isExternal ? '->' : ''} ${title}`}
+                      </strong>
+                    </div>
+                  </header>
+                  <motion.div
+                    animate={{ opacity: clicked ? 0 : 1 }}
+                    transition={{ duration: 0.25 }}
                   >
-                    <header>
-                      {renderHeader(
-                        isExternal,
-                        link,
-                        <strong className="main-reveal-text text-lg text-blue-500 dark:text-green-400 hover:underline">
-                          {`${isExternal ? '->' : ''} ${title}`}
-                        </strong>
-                      )}
-                    </header>
-                    <motion.div
-                      animate={{ opacity: clicked ? 0 : 1 }}
-                      transition={{ duration: 0.25 }}
-                      className="relative top-8 pb-6"
-                    >
-                      <p itemProp="description">
-                        {post.frontmatter.description}
-                      </p>
-                      <small className="text-xs">{post.frontmatter.date}</small>
-                    </motion.div>
-                  </article>
-                </motion.li>
-              );
-            })}
-          </ol>
-        )}
-      </div>
+                    <p itemProp="description">{post.frontmatter.description}</p>
+                    <small className="text-xs">{post.frontmatter.date}</small>
+                  </motion.div>
+                </article>
+              </motion.li>
+            );
+          })}
+        </ol>
+      )}
     </React.Fragment>
   );
 };

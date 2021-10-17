@@ -19,10 +19,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: 'src/images/icon.png',
+        name: `Krsn's Blog`,
+        short_name: `Krsn's Blog`,
+        background_color: `#fff`,
+        theme_color: `#444`,
+        display: `fullscreen`,
+        icon: 'static/favicons/icon.png',
       },
     },
     'gatsby-plugin-mdx',
