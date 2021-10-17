@@ -20,7 +20,11 @@ const DarkModeToggleButton = () => {
       onClick={toggleMode}
     >
       <motion.svg
-        style={{ originY: '100px', display: 'absolute', x: '12px' }}
+        style={{
+          originY: '100px',
+          position: 'relative',
+          left: '12px',
+        }}
         animate={{ rotate: isDarkMode ? 0 : '-90deg' }}
         transition={{
           duration: 0.5,
@@ -38,10 +42,11 @@ const DarkModeToggleButton = () => {
       <motion.svg
         style={{
           originY: '100px',
-          display: 'absolute',
-          x: '-12px',
-          rotate: '90deg',
+          left: '-12px',
+          transform: 'rotate(90deg)',
+          transformOrigin: '0 100px',
         }}
+        initial={{ rotate: isDarkMode ? '90deg' : 0 }}
         animate={{ rotate: isDarkMode ? '90deg' : 0 }}
         transition={{
           duration: 0.5,
