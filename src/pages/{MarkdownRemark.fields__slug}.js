@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { motion } from 'framer-motion';
 import Seo from '../components/Seo';
 
 import '../styles/post.css';
@@ -20,10 +21,25 @@ const BlogPostTemplate = ({ data }) => {
               {post.frontmatter.title}
             </strong>
           </h2>
-          <small>{post.frontmatter.date}</small>
+          <motion.div
+            initial={{
+              y: 30,
+              opacity: 0,
+            }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <small>{post.frontmatter.date}</small>
+          </motion.div>
         </header>
-        <section
-          className="mdx my-8 mx-6"
+        <motion.section
+          initial={{
+            y: 30,
+            opacity: 0,
+          }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mdx my-8 lg:mx-6"
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
