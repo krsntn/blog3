@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, graphql } from 'gatsby';
 import { motion } from 'framer-motion';
 import Seo from '../components/Seo';
 import '../styles/post.css';
 
 const BlogPostTemplate = ({ data }) => {
-  useEffect(() => {
-    if (window !== undefined) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
   const post = data.markdownRemark;
   const { previous, next } = data.allMarkdownRemark.edges.find(
     (x) => x.node.id === post.id

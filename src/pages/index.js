@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 import { motion } from 'framer-motion';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
@@ -8,12 +8,6 @@ const Index = ({ location }) => {
   const data = useSiteMetadata();
   const [clicked, setClicked] = useState(null);
   const posts = data.allMarkdownRemark.nodes;
-
-  useEffect(() => {
-    if (window !== undefined) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
 
   const renderHeader = (isExternal, link, component) => {
     if (isExternal) {
