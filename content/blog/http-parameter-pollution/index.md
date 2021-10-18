@@ -9,7 +9,7 @@ HTTP Parameter Pollution (HPP) is a Web attack evasion technique that allows an 
 
 ### Example
 
-`https://www.somewebsite.com?par1=val1&other=test**&par1=val2**`
+www.somewebsite.com?par1=val1&other=test**&par1=val2**
 
 | TECHNOLOGY/HTTP BACK-END   | OVERALL PARSING RESULT                    | EXAMPLE        |
 | -------------------------- | ----------------------------------------- | -------------- |
