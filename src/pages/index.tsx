@@ -44,7 +44,7 @@ const Index: React.FC = () => {
       <motion.button
         onClick={() => {
           setClicked(link);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0 });
           setTimeout(() => {
             navigate(link);
           }, 600);
