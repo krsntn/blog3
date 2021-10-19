@@ -4,12 +4,28 @@ import { motion } from 'framer-motion';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 import Seo from '../components/Seo';
 
-const Index = ({ location }) => {
-  const data = useSiteMetadata();
-  const [clicked, setClicked] = useState(null);
-  const posts = data.allMarkdownRemark.nodes;
+interface PostProps {
+  fields: {
+    slug: string;
+  };
+  frontmatter: {
+    title: string;
+    description: string;
+    url: string;
+    date: Date;
+  };
+}
 
-  const renderHeader = (isExternal, link, component) => {
+const Index: React.FC = () => {
+  const data = useSiteMetadata();
+  const [clicked, setClicked] = useState<string | null>(null);
+  const posts: PostProps[] = data.allMarkdownRemark.nodes;
+
+  const renderHeader = (
+    isExternal: boolean,
+    link: string,
+    component: JSX.Element
+  ) => {
     if (isExternal) {
       return (
         <a
@@ -64,7 +80,7 @@ const Index = ({ location }) => {
                 animate={{ opacity: clicked && clicked !== link ? 0 : 1 }}
                 transition={{ duration: 0.25 }}
                 key={post.fields.slug}
-                tabIndex="-1"
+                tabIndex={-1}
               >
                 <article itemScope itemType="http://schema.org/Article">
                   <header>

@@ -1,14 +1,64 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { Link, graphql, PageProps } from 'gatsby';
 import { motion } from 'framer-motion';
 import Seo from '../components/Seo';
 import '../styles/post.css';
 
-const BlogPostTemplate = ({ data }) => {
-  const post = data.markdownRemark;
-  const { previous, next } = data.allMarkdownRemark.edges.find(
+interface IPageQuery {
+  data: {
+    site: {
+      siteMetadata: {
+        title: string;
+      };
+    };
+    markdownRemark: {
+      id: number;
+      html: string;
+      frontmatter: {
+        title: string;
+        description: string;
+        date: Date;
+      };
+    };
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          id: number;
+          frontmatter: {
+            title: string;
+          };
+        };
+        next: {
+          fields: {
+            slug: string;
+          };
+          frontmatter: {
+            title: string;
+            url: string;
+          };
+        };
+        previous: {
+          fields: {
+            slug: string;
+          };
+          frontmatter: {
+            title: string;
+            url: string;
+          };
+        };
+      }[];
+    };
+  };
+}
+
+const BlogPostTemplate: React.FC<PageProps & IPageQuery> = (props) => {
+  const post = props.data.markdownRemark;
+  const otherPosts = props.data.allMarkdownRemark.edges.find(
     (x) => x.node.id === post.id
   );
+
+  const previous = otherPosts?.previous;
+  const next = otherPosts?.next;
 
   return (
     <div>

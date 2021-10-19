@@ -5,7 +5,11 @@ import { motion } from 'framer-motion';
 import DarkModeToggleButton from './DarkModeToggleButton';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: JSX.Element;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const siteMetadata = useSiteMetadata();
 
   const header = (

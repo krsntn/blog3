@@ -2,11 +2,17 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 
-const SEO = ({ description, lang, meta, title }) => {
+interface SEOProps {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const SEO: React.FC<SEOProps> = ({ description, lang, title }) => {
   const siteMetadata = useSiteMetadata();
-  const metaDescription =
+  const metaDescription: string =
     description || siteMetadata.site.siteMetadata.description;
-  const defaultTitle = siteMetadata.site.siteMetadata.title;
+  const defaultTitle: string = siteMetadata.site.siteMetadata.title;
 
   return (
     <Helmet
@@ -14,7 +20,7 @@ const SEO = ({ description, lang, meta, title }) => {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={defaultTitle && `%s | ${defaultTitle}`}
       meta={[
         {
           name: `description`,

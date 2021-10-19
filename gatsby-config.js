@@ -13,6 +13,7 @@ module.exports = {
     defaultImage: 'images/bg.jpeg',
   },
   plugins: [
+    'gatsby-plugin-tsconfig-paths',
     'gatsby-plugin-postcss',
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
