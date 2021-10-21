@@ -8,7 +8,7 @@ interface SEOProps {
   lang?: string;
 }
 
-const SEO: React.FC<SEOProps> = ({ description, lang, title }) => {
+const SEO: React.FC<SEOProps> = ({ description, lang = 'en', title }) => {
   const siteMetadata = useSiteMetadata();
   const metaDescription: string =
     description || siteMetadata.site.siteMetadata.description;

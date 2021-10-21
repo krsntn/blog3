@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         Written by karson, a front end dev trying to make the web a little
         better place while making a living.
       </p>
-      <a href="https://twitter.com/ooneoneo">
+      <a href="https://twitter.com/ooneoneo" aria-label="Twitter">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -56,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-700 dark:text-white transition duration-500 ease-out min-h-screen">
-      <div className="bg-gray-200 dark:bg-gray-800 w-screen md:w-80 md:h-screen fixed top-0 left-0 overflow-hidden text-center">
+      <div className="bg-gray-200 dark:bg-gray-800 w-full md:w-80 md:h-screen sticky md:fixed top-0 left-0 overflow-hidden text-center">
         <div
           className="md:h-screen p-4 flex flex-col justify-center items-center gap-2"
           style={{ minHeight: 200 }}
@@ -65,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </div>
 
-      <main className="relative bg-gray-100 dark:bg-gray-700 md:ml-80 top-48 md:top-0 p-10">
+      <main className="relative bg-gray-100 dark:bg-gray-700 md:ml-80 p-10">
         {children}
       </main>
     </div>
