@@ -23,7 +23,7 @@ export const useSiteMetadata = (): any => {
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "MMMM, YYYY")
             title
             description
             url
