@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { navigate } from 'gatsby';
 import { motion } from 'framer-motion';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 import Seo from '../components/Seo';
+import { SearchBlogContext } from 'src/context/SearchBlog';
 
-interface PostProps {
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    title: string;
-    description: string;
-    url: string;
-    date: Date;
-  };
-}
-
-const Index: React.FC = () => {
+const Index = () => {
+  const {
+    state: { searchValue },
+  } = useContext(SearchBlogContext);
   const data = useSiteMetadata();
-  const [clicked, setClicked] = useState<string | null>(null);
-  const posts: PostProps[] = data.allMarkdownRemark.nodes;
+  const [clicked, setClicked] = useState(null);
+  const allPosts = data.allMarkdownRemark.nodes;
 
-  const renderHeader = (
-    isExternal: boolean,
-    link: string,
-    component: JSX.Element
-  ) => {
+  const filteredPosts = allPosts.filter((post) => {
+    const postWithKeywords = post.frontmatter.title
+      .toLowerCase()
+      .trim()
+      .concat(' ', post.frontmatter.tags?.join(' ') || '')
+      .split(' ');
+
+    return searchValue
+      ? searchValue
+          .trim()
+          .split(' ')
+          .every((x) => postWithKeywords.includes(x))
+      : true;
+  });
+
+  const renderHeader = (isExternal, link, component) => {
     if (isExternal) {
       return (
         <a
@@ -52,7 +55,7 @@ const Index: React.FC = () => {
         itemProp="url"
         className="absolute text-left left-0"
         animate={{
-          top: clicked === link ? 0 : 'unset',
+          top: clicked === link ? '0' : 'unset',
           opacity: clicked && clicked !== link ? 0 : 1,
         }}
         transition={{ duration: 0.35 }}
@@ -65,11 +68,11 @@ const Index: React.FC = () => {
   return (
     <React.Fragment>
       <Seo title="Home" />
-      {posts.length === 0 ? (
+      {filteredPosts.length === 0 ? (
         <p>No blog posts found.</p>
       ) : (
         <ol className="relative list-none">
-          {posts.map((post) => {
+          {filteredPosts.map((post) => {
             const title = post.frontmatter.title || post.fields.slug;
             const isExternal = !!post.frontmatter.url;
             const link = post.frontmatter.url || post.fields.slug;
