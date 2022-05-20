@@ -20,7 +20,7 @@ const Index = () => {
 
   useEffect(() => {
     dispatch({ type: 'update', payload: '' });
-  }, []);
+  }, [dispatch]);
   const filteredPosts = allPosts.filter((post) => {
     const postWithKeywords = post.frontmatter.title
       .toLowerCase()
@@ -63,7 +63,7 @@ const Index = () => {
         itemProp="url"
         className="absolute text-left left-0"
         animate={{
-          top: clickLink === link ? '-87px' : 'unset',
+          top: clickLink === link ? '-84px' : 'unset',
           opacity: clickLink && clickLink !== link ? 0 : 1,
         }}
         transition={{ duration: 0.35 }}
@@ -75,10 +75,8 @@ const Index = () => {
 
   return (
     <React.Fragment>
-      {console.log('clickLink', clickLink)}
-      {/* {clickLink ? '' : <Search />} */}
-      <Search />
       <Seo title="Home" />
+      <Search />
       {filteredPosts.length === 0 ? (
         <p>No blog posts found.</p>
       ) : (
