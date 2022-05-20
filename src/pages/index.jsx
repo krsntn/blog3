@@ -1,18 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { navigate } from 'gatsby';
 import { motion } from 'framer-motion';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
 import Seo from '../components/Seo';
+import Search from '../components/Search';
 import { SearchBlogContext } from 'src/context/SearchBlog';
+import { ClickLinkContext } from 'src/context/ClickLink';
 
 const Index = () => {
   const {
     state: { searchValue },
   } = useContext(SearchBlogContext);
+  const {
+    state: { clickLink },
+    dispatch,
+  } = useContext(ClickLinkContext);
   const data = useSiteMetadata();
-  const [clicked, setClicked] = useState(null);
   const allPosts = data.allMarkdownRemark.nodes;
 
+  useEffect(() => {
+    dispatch({ type: 'update', payload: '' });
+  }, []);
   const filteredPosts = allPosts.filter((post) => {
     const postWithKeywords = post.frontmatter.title
       .toLowerCase()
@@ -46,7 +54,7 @@ const Index = () => {
     return (
       <motion.button
         onClick={() => {
-          setClicked(link);
+          dispatch({ type: 'update', payload: link });
           window.scrollTo({ top: 0 });
           setTimeout(() => {
             navigate(link);
@@ -55,8 +63,8 @@ const Index = () => {
         itemProp="url"
         className="absolute text-left left-0"
         animate={{
-          top: clicked === link ? '0' : 'unset',
-          opacity: clicked && clicked !== link ? 0 : 1,
+          top: clickLink === link ? '-87px' : 'unset',
+          opacity: clickLink && clickLink !== link ? 0 : 1,
         }}
         transition={{ duration: 0.35 }}
       >
@@ -67,6 +75,9 @@ const Index = () => {
 
   return (
     <React.Fragment>
+      {console.log('clickLink', clickLink)}
+      {/* {clickLink ? '' : <Search />} */}
+      <Search />
       <Seo title="Home" />
       {filteredPosts.length === 0 ? (
         <p>No blog posts found.</p>
@@ -80,7 +91,9 @@ const Index = () => {
             return (
               <motion.li
                 className="mb-10"
-                animate={{ opacity: clicked && clicked !== link ? 0 : 1 }}
+                animate={{
+                  opacity: clickLink && clickLink !== link ? 0 : 1,
+                }}
                 transition={{ duration: 0.25 }}
                 key={post.fields.slug}
                 tabIndex={-1}
@@ -101,7 +114,9 @@ const Index = () => {
                     </div>
                   </header>
                   <motion.div
-                    animate={{ opacity: clicked ? 0 : 1 }}
+                    animate={{
+                      opacity: clickLink ? 0 : 1,
+                    }}
                     transition={{ duration: 0.25 }}
                   >
                     <p itemProp="description">{post.frontmatter.description}</p>

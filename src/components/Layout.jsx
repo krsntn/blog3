@@ -4,14 +4,9 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { motion } from 'framer-motion';
 import DarkModeToggleButton from './DarkModeToggleButton';
 import { useSiteMetadata } from '../utils/useSiteMetadata';
-import Search from './Seach';
-import { SearchBlogContextProvider } from '../context/SearchBlog';
+import Stores from 'src/context';
 
-interface LayoutProps {
-  children: JSX.Element;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
   const siteMetadata = useSiteMetadata();
 
   const header = (
@@ -57,7 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 
   return (
-    <SearchBlogContextProvider>
+    <Stores>
       <div className="bg-gray-100 dark:bg-gray-700 dark:text-white transition duration-500 ease-out min-h-screen">
         <div className="bg-gray-200 dark:bg-gray-800 w-full md:w-80 md:h-screen sticky md:fixed top-0 left-0 overflow-hidden text-center">
           <div
@@ -69,11 +64,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
 
         <main className="relative bg-gray-100 dark:bg-gray-700 md:ml-80 p-10">
-          <Search />
           {children}
         </main>
       </div>
-    </SearchBlogContextProvider>
+    </Stores>
   );
 };
 

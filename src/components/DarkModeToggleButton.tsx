@@ -3,7 +3,11 @@ import { updateWebsiteDarkMode } from '../utils/darkMode';
 import { motion } from 'framer-motion';
 
 const DarkModeToggleButton = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(
+    window &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
   useEffect(() => {
     updateWebsiteDarkMode(isDarkMode);

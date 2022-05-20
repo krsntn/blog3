@@ -1,9 +1,13 @@
 import React, { useCallback, useContext, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SearchBlogContext } from 'src/context/SearchBlog';
+import { ClickLinkContext } from 'src/context/ClickLink';
 
 const Search = () => {
   const { dispatch } = useContext(SearchBlogContext);
+  const {
+    state: { clickLink },
+  } = useContext(ClickLinkContext);
   const timer = useRef(null);
 
   const searchBlog = useCallback(
@@ -20,7 +24,9 @@ const Search = () => {
     <motion.div
       className="py-5 relative"
       animate={{
-        opacity: window.location.pathname === '/' ? 1 : 0,
+        opacity: clickLink ? 0 : 1,
+        top: clickLink ? '-87px' : '0',
+        position: 'relative',
       }}
       transition={{ duration: 0.35 }}
     >
