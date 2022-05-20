@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const DarkModeToggleButton = () => {
   const [isDarkMode, setIsDarkMode] = useState(
-    typeof window !== undefined &&
+    typeof window !== 'undefined' &&
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
   );
