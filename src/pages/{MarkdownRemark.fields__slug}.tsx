@@ -63,7 +63,7 @@ const BlogPostTemplate: React.FC<PageProps & IPageQuery> = (props) => {
   return (
     <div>
       <Seo title={post.frontmatter.title} />
-      <article itemType="http://schema.org/Article">
+      <article itemType="http://schema.org/Article" className="overflow-auto">
         <header>
           <h2 itemProp="headline">
             <strong className="text-blue-500 dark:text-green-400 text-lg">
