@@ -5,7 +5,7 @@ description: Format numbers like 1.2K or 2.3M using the JavaScript International
 tags:
   - javascript
 ---
-`﻿``javascript
+```﻿javascript
 let formatter = Intl.NumberFormat('en', {
   notation: 'compact',
   style: 'currency',
@@ -17,7 +17,7 @@ let n = formatter.format(505123);
 console.log(n); //SGD 505K
 ```
 
-`﻿``javascript
+```﻿javascript
 let formatter = Intl.NumberFormat('en', {
   notation: 'compact',
 });
