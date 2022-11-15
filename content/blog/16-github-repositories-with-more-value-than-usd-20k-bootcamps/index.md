@@ -21,18 +21,6 @@ Learn how to design large-scale systems. Prep for the system design interview.
 ### 6. [﻿coding-interview-university](https://github.com/jwasham/coding-interview-university)
 A complete computer science study plan to become a software engineer.
 
-### 6. [﻿coding-interview-university](https://github.com/jwasham/coding-interview-university)
-A complete computer science study plan to become a software engineer.
-
-### 6. [﻿coding-interview-university](https://github.com/jwasham/coding-interview-university)
-A complete computer science study plan to become a software engineer.
-
-### 6. [﻿coding-interview-university](https://github.com/jwasham/coding-interview-university)
-A complete computer science study plan to become a software engineer.
-
-### 6. [﻿coding-interview-university](https://github.com/jwasham/coding-interview-university)
-A complete computer science study plan to become a software engineer.
-
 ### 7. [﻿tech-interview-handbook](https://github.com/yangshun/tech-interview-handbook)
 Curated coding interview preparation materials for software engineers.
 
