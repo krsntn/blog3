@@ -1,5 +1,5 @@
 ---
-title: How to Use fnm – Fast Node Manager
+title: How to Use fnm (Fast Node Manager)
 date: 2023-02-06T04:29:45.284Z
 description: fnm (Fast Node Manager), a Node version manager
 ---
