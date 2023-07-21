@@ -44,7 +44,7 @@ Language-Argument mode ('l') is used to specify a language or locale for certain
 To provide a better reference, here's a map table summarizing the Neovim map modes and their respective abbreviations:
 
 | Map Mode               | Abbreviation |
-| ---------------------- | ------------ |
+| :--------------------: | :----------: |
 | Normal Mode            | n            |
 | Insert Mode            | i            |
 | Command-line Mode      | c            |
